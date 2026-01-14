@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সীরাত আল-নূর: পূর্ণাঙ্গ জীবনী</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#fdfbf7',
+                        brand: {
+                            base: '#047857',    // Emerald 700 (Primary)
+                            dark: '#064e3b',    // Emerald 900 (Text)
+                            gold: '#d97706',    // Amber 600 (Accent)
+                            goldLight: '#fcd34d',
+                            makkan: '#b45309',  // Amber for Makkah
+                            madinan: '#059669', // Emerald for Madinah
+                            battle: '#be123c',  // Red for Battles
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Hind Siliguri"', 'sans-serif'],
+                        serif: ['"Noto Serif Bengali"', 'serif'],
+                        arabic: ['"Amiri"', 'serif'],
+                    },
+                    backgroundImage: {
+                        'pattern': "url('https://www.transparenttextures.com/patterns/arabesque.png')",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            overflow-x: hidden;
+        }
+
+        /* --- UI ELEMENTS --- */
+        
+        /* Progress Path */
+        .path-container {
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 4px;
+            background: #e2e8f0;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .path-fill {
+            position: fixed;
+            top: 0; left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #d97706, #047857);
+            transform: translateX(-50%);
+            z-index: 0;
+            height: 0%;
+            max-height: 100vh;
+        }
+        @media (max-width: 768px) {
+            .path-container, .path-fill { left: 30px; }
+        }
+
+        /* Card 3D Lift Effect */
+        .timeline-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .timeline-card:hover {
+            transform: translateY(-8px);
+            background: #ffffff;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #d97706;
+        }
+
+        /* Modal Transitions */
+        .modal-overlay { 
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; 
+        }
+        .modal-overlay.open { 
+            opacity: 1; visibility: visible; 
+        }
+        .modal-panel {
+            transform: scale(0.95) translateY(20px); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.open .modal-panel {
+            transform: scale(1) translateY(0); opacity: 1;
+        }
+
+        /* Tab System */
+        .tab-btn {
+            position: relative;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+        .tab-btn::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 3px;
+            background: #047857; transition: width 0.3s;
+        }
+        .tab-btn.active { color: #047857; font-weight: bold; }
+        .tab-btn.active::after { width: 100%; }
+        
+        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Typography & Scrollbar */
+        .drop-cap::first-letter {
+            font-size: 3.5rem; float: left; margin-right: 0.75rem; margin-top: -0.5rem;
+            font-family: 'Amiri', serif; color: #d97706; line-height: 1;
+        }
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #047857; }
+
+        /* Info Table Style */
+        .info-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+        .info-table th { background: #f8fafc; color: #475569; padding: 12px; text-align: left; font-weight: 600; border-bottom: 1px solid #e2e8f0; }
+        .info-table td { background: #fff; padding: 12px; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
+        .info-table tr:last-child td { border-bottom: none; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased">
+
+    <!-- SCROLL PROGRESS -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="path-container h-full"></div>
+    </div>
+    <div class="path-fill" id="progress-line"></div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <!-- Brand -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-base rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-serif font-bold text-brand-dark tracking-wide">সীরাত আল-নূর</h1>
+                        <span class="text-[10px] text-brand-gold uppercase tracking-[0.2em] font-bold">পূর্ণাঙ্গ জীবনী</span>
+                    </div>
+                </div>
+
+                <!-- Search & Filter -->
+                <div class="flex flex-1 max-w-xl gap-2 w-full">
+                    <div class="relative w-full">
+                        <input type="text" id="search-input" placeholder="ঘটনা বা সাল খুঁজুন..." 
+                            class="w-full bg-gray-50 text-gray-700 text-sm rounded-full pl-10 pr-4 py-2 border border-gray-200 focus:outline-none focus:border-brand-base focus:ring-1 focus:ring-brand-base transition">
+                        <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    </div>
+                    <select id="filter-select" onchange="filterTimeline()" class="bg-gray-50 text-gray-700 text-sm rounded-full px-4 py-2 border border-gray-200 focus:outline-none cursor-pointer hover:bg-white transition">
+                        <option value="all">সব ঘটনা</option>
+                        <option value="makkan">মক্কী জীবন</option>
+                        <option value="madinan">মাদানী জীবন</option>
+                        <option value="battle">যুদ্ধ/গাজওয়া</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-20 px-4 text-center z-10 bg-gradient-to-b from-orange-50/50 to-slate-50">
+        <div class="absolute inset-0 opacity-5 bg-pattern pointer-events-none"></div>
+        
+        <div class="animate-float">
+            <span class="text-brand-gold text-5xl font-arabic drop-shadow-sm block mb-4">مُحَمَّد</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold font-serif mb-6 text-brand-dark leading-tight">
+            অন্ধকার থেকে <span class="text-brand-gold">আলোর</span> পথে যাত্রা
+        </h1>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed font-serif">
+            জন্ম থেকে ওফাত — মানবতার মহান শিক্ষকের জীবনের প্রতিটি মুহূর্ত এখানে সযত্নে সংরক্ষিত।
+            <br><span class="text-xs text-brand-base font-sans mt-2 block">"তোমাদের জন্য আল্লাহর রাসূলের জীবনেই রয়েছে উত্তম আদর্শ।" (সূরা আহযাব)</span>
+        </p>
+        
+        <!-- Stats Summary -->
+        <div class="flex justify-center gap-6 mt-10">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-brand-makkan font-serif">৫৩</div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500">বছর মক্কায়</div>
+            </div>
+            <div class="w-px h-10 bg-gray-300"></div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-brand-madinan font-serif">১০</div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500">বছর মদিনায়</div>
+            </div>
+            <div class="w-px h-10 bg-gray-300"></div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-brand-gold font-serif">৬৩</div>
+                <div class="text-[10px] uppercase tracking-wider text-gray-500">বছর জীবনকাল</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TIMELINE CONTAINER -->
+    <main class="container mx-auto px-4 pb-32 relative z-10 max-w-5xl" id="timeline-feed">
+        <!-- JS will inject content here -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-10 relative z-10 text-center">
+        <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-gold text-xl border border-gray-100">
+            <i class="fas fa-kaaba"></i>
+        </div>
+        <p class="text-brand-dark font-arabic text-2xl mb-2">صلى الله عليه وسلم</p>
+        <div class="flex justify-center gap-4 text-xs text-gray-500 font-mono mt-4">
+            <span>আর-রাহিকুল মাখতুম</span> • <span>সিরাতে ইবনে হিশাম</span> • <span>সহীহ বুখারী</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-6">&copy; ২০২৬ সীরাত প্রজেক্ট</p>
+    </footer>
+
+    <!-- DETAILED MODAL -->
+    <div id="modal-overlay" class="modal-overlay fixed inset-0 z-[100] bg-brand-dark/30 backdrop-blur-sm flex items-center justify-center p-0 md:p-4">
+        
+        <!-- Modal Card -->
+        <div class="modal-panel bg-paper w-full h-full md:h-[90vh] md:max-w-4xl md:rounded-2xl shadow-2xl flex flex-col overflow-hidden relative border border-white">
+            
+            <!-- Modal Header -->
+            <div class="bg-white border-b border-gray-100 px-6 py-4 flex justify-between items-center sticky top-0 z-20 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div id="m-header-icon-bg" class="w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-inner bg-gray-50">
+                        <i id="m-icon-header"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span id="m-year-badge" class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded text-white bg-brand-base"></span>
+                            <span id="m-cat-badge" class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border border-gray-200 text-gray-500"></span>
+                        </div>
+                        <h2 id="m-title" class="text-xl md:text-2xl font-serif font-bold text-brand-dark truncate max-w-[200px] md:max-w-lg"></h2>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-gray-50 hover:bg-red-50 hover:text-red-500 text-gray-400 transition flex items-center justify-center border border-gray-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="bg-white border-b border-gray-100 px-6 flex gap-8">
+                <button onclick="switchTab('story')" id="tab-story" class="tab-btn active py-4 text-sm font-bold flex items-center gap-2">
+                    <i class="fas fa-book-open text-xs"></i> মূল গল্প
+                </button>
+                <button onclick="switchTab('stats')" id="tab-stats" class="tab-btn py-4 text-sm font-bold flex items-center gap-2">
+                    <i class="fas fa-list-ul text-xs"></i> তথ্যকণিকা
+                </button>
+                <button onclick="switchTab('lesson')" id="tab-lesson" class="tab-btn py-4 text-sm font-bold flex items-center gap-2">
+                    <i class="fas fa-lightbulb text-xs"></i> শিক্ষা
+                </button>
+            </div>
+
+            <!-- Content Body -->
+            <div class="flex-1 overflow-y-auto custom-scroll p-6 md:p-10 bg-paper relative">
+                <!-- Watermark -->
+                <div class="absolute inset-0 bg-pattern opacity-5 pointer-events-none"></div>
+
+                <!-- 1. STORY TAB -->
+                <div id="content-story" class="tab-content active relative z-10">
+                    <div class="max-w-3xl mx-auto">
+                        <div class="text-center mb-8 pb-8 border-b border-gray-200 border-dashed">
+                            <p id="m-subtitle" class="text-brand-gold font-serif italic text-xl font-medium"></p>
+                        </div>
+                        <div id="m-story" class="prose prose-lg max-w-none font-serif text-gray-700 leading-loose text-justify"></div>
+                    </div>
+                </div>
+
+                <!-- 2. STATS TAB -->
+                <div id="content-stats" class="tab-content relative z-10">
+                    <div class="max-w-2xl mx-auto">
+                        <h3 class="text-xl font-bold text-brand-dark mb-6 flex items-center gap-2">
+                            <i class="fas fa-info-circle text-brand-base"></i> এক নজরে গুরুত্বপূর্ণ তথ্য
+                        </h3>
+                        <div id="m-stats-table-container">
+                            <!-- Table injected here -->
+                        </div>
+                        
+                        <!-- Timeline Context -->
+                        <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100 flex items-start gap-3">
+                            <i class="fas fa-history text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-blue-800 text-sm">সময়কাল</h4>
+                                <p id="m-context-text" class="text-sm text-blue-700"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. LESSON TAB -->
+                <div id="content-lesson" class="tab-content relative z-10">
+                    <div class="max-w-2xl mx-auto">
+                        <!-- Main Lesson Card -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border-l-4 border-brand-gold mb-8">
+                            <h4 class="text-sm font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <i class="fas fa-lightbulb"></i> শিক্ষণীয় বিষয়
+                            </h4>
+                            <ul id="m-lesson-list" class="space-y-4">
+                                <!-- Lessons list injected here -->
+                            </ul>
+                        </div>
+
+                        <!-- Source -->
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">তথ্যসূত্র</span>
+                            <p id="m-source" class="text-sm font-serif text-brand-dark font-bold mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- 1. UTILS ---
+        function toBanglaNum(n) {
+            return String(n).replace(/[0-9]/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+        }
+
+        // --- 2. SEERAH DATABASE (Extended) ---
+        const seerahDB = [
+            {
+                id: 1,
+                year: "570",
+                category: "makkan",
+                icon: "fas fa-star",
+                title: "পবিত্র জন্ম (আমুল ফিল)",
+                subtitle: "আইয়ামে জাহেলিয়াতের অন্ধকারে নূরের আগমন",
+                story: `<p class="drop-cap">ত</p>খনকার আরব সমাজ ছিল ঘোর অন্ধকারে নিমজ্জিত। ঠিক সেই সময়ে, ১২ই রবিউল আউয়াল সোমবার সুবহে সাদিকের সময় মক্কার কুরাইশ বংশে মা আমিনার কোল আলোকিত করে জন্মগ্রহণ করেন হযরত মুহাম্মদ (সা.)। <p>তাঁর জন্মের মাত্র ৫০ দিন আগে ইয়েমেনের বাদশা আবরাহা বিশাল হাতির বাহিনী নিয়ে কাবা শরীফ ধ্বংস করতে এসেছিল। আল্লাহ আবাবিল পাখি পাঠিয়ে তাদের ধ্বংস করে দেন। জন্মের পর দাদা আব্দুল মুত্তালিব তাঁকে কোলে নিয়ে কাবা ঘরে প্রবেশ করেন এবং নাম রাখেন 'মুহাম্মদ', যার অর্থ 'প্রশংসিত' (The Praised One)।</p>`,
+                stats: {
+                    "তারিখ": "১২ রবিউল আউয়াল, ৫৭০ খ্রি.",
+                    "বার": "সোমবার",
+                    "পিতা": "আব্দুল্লাহ ইবনে আব্দুল মুত্তালিব",
+                    "মাতা": "আমিনা বিনতে ওয়াহাব",
+                    "দাত্রী": "শিফা বিনতে আউফ"
+                },
+                lessons: [
+                    "আল্লাহ তাঁর পবিত্র ঘর এবং তাঁর প্রিয় হাবিবকে অলৌকিকভাবে রক্ষা করেন।",
+                    "জন্মের শুরু থেকেই তাঁর জীবন ছিল মোজেজায় পূর্ণ।",
+                    "এতিম হিসেবে জন্মগ্রহণ করে তিনি এতিমদের প্রতি সহানুভূতির শিক্ষা দিয়েছেন।"
+                ],
+                source: "আর-রাহিকুল মাখতুম, পৃষ্ঠা ৫২"
+            },
+            {
+                id: 2,
+                year: "575",
+                category: "makkan",
+                icon: "fas fa-heart",
+                title: "বক্ষ বিদীর্ণ (শাক্কুল সদর)",
+                subtitle: "হালিমা সাদিয়ার গৃহে অলৌকিক ঘটনা",
+                story: `<p class="drop-cap">আ</p>রবের সম্ভ্রান্ত প্রথা অনুযায়ী শিশু নবীজিকে লালন-পালনের জন্য বনু সা'দ গোত্রের হালিমা সাদিয়ার হাতে তুলে দেওয়া হয়। হালিমা বলেন, 'এই শিশুটি আমার ঘরে আসার পর থেকে আমার সংসারে অভাবনীয় বরকত নেমে আসে।' <p>চার বছর বয়সে খেলার সময় জিবরাঈল (আ.) মানুষের রূপে এসে তাঁকে শুইয়ে দেন। তাঁর বুক চিরে হৃৎপিণ্ড বের করেন এবং জমজমের পানি দিয়ে ধুয়ে শয়তানের অংশ (কালো রক্তপিণ্ড) ফেলে দেন। এরপর হৃৎপিণ্ড যথাস্থানে স্থাপন করে বুক জোড়া লাগিয়ে দেন।</p>`,
+                stats: {
+                    "বয়স": "৪ বছর",
+                    "স্থান": "বনু সা'দ গোত্র",
+                    "দুধমা": "হালিমা সাদিয়া",
+                    "ফেরেশতা": "জিবরাঈল (আ.)"
+                },
+                lessons: [
+                    "নবুওয়াতের মহান দায়িত্বের জন্য আল্লাহ শিশুকাল থেকেই তাঁকে পবিত্র ও কলুষমুক্ত রেখেছিলেন।",
+                    "আধ্যাত্মিক পবিত্রতা শারীরিক পবিত্রতার মতোই গুরুত্বপূর্ণ।"
+                ],
+                source: "সহীহ মুসলিম"
+            },
+            {
+                id: 3,
+                year: "576",
+                category: "makkan",
+                icon: "fas fa-child",
+                title: "মায়ের ইন্তেকাল",
+                subtitle: "শৈশবে মাতৃহারা ও এতিম জীবন",
+                story: `<p class="drop-cap">জ</p>ন্মের ৬ মাস আগেই পিতা ইন্তেকাল করেছিলেন। ৬ বছর বয়সে মা আমিনা তাঁকে নিয়ে মদিনায় বাবার কবর জিয়ারতে যান। ফেরার পথে 'আবওয়া' নামক স্থানে মা আমিনা হঠাৎ অসুস্থ হয়ে ইন্তেকাল করেন। <p>মরুভূমির বুকে ছোট্ট শিশুটি মায়ের লাশের পাশে বসে আছে—ভাবলেই হৃদয় কেঁপে ওঠে। দাসী উম্মে আইমান তাঁকে মক্কায় নিয়ে আসেন। এরপর দাদা আব্দুল মুত্তালিব তাঁকে পরম স্নেহে বুকে জড়িয়ে নেন। কিন্তু দুই বছর পর দাদাও ইন্তেকাল করেন।</p>`,
+                stats: {
+                    "বয়স": "৬ বছর",
+                    "স্থান": "আবওয়া (মক্কা ও মদিনার মাঝে)",
+                    "অভিভাবক": "দাদা আব্দুল মুত্তালিব",
+                    "সেবিকা": "উম্মে আইমান (রা.)"
+                },
+                lessons: [
+                    "আল্লাহ তাঁর নবীকে দুনিয়ার সব আশ্রয় থেকে বঞ্চিত করে একমাত্র তাঁর আশ্রয়ে বড় করেছেন।",
+                    "ধৈর্য ও সহনশীলতার চরম পরীক্ষা শৈশব থেকেই শুরু হয়।"
+                ],
+                source: "সিরাতে ইবনে হিশাম"
+            },
+            {
+                id: 4,
+                year: "595",
+                category: "makkan",
+                icon: "fas fa-ring",
+                title: "বিবাহ ও আল-আমিন",
+                subtitle: "খাদিজা (রা.) এর সাথে পবিত্র বন্ধন",
+                story: `<p class="drop-cap">যৌ</p>বনে তিনি এতটাই সৎ ছিলেন যে মক্কাবাসী তাঁকে 'আল-আমিন' (বিশ্বাসী) উপাধি দিয়েছিল। তাঁর সততায় মুগ্ধ হয়ে আরবের ধনাঢ্য নারী খাদিজা (রা.) বিবাহের প্রস্তাব পাঠান। <p>তখন নবীজির বয়স ছিল ২৫ এবং খাদিজার (রা.) বয়স ছিল ৪০। চাচা আবু তালিবের সম্মতিতে এই মোবারক বিবাহ সম্পন্ন হয়। খাদিজা (রা.) ছিলেন নবীজির সুখ-দুঃখের প্রথম সাথী। তিনি নিজের সমস্ত সম্পদ ইসলামের জন্য অকাতরে বিলিয়ে দিয়েছিলেন।</p>`,
+                stats: {
+                    "নবীজির বয়স": "২৫ বছর",
+                    "খাদিজার বয়স": "৪০ বছর",
+                    "মহরানা": "২০টি উট",
+                    "সন্তান": "২ পুত্র, ৪ কন্যা"
+                },
+                lessons: [
+                    "পারিবারিক জীবনে সততা, বিশ্বস্ততা ও পারস্পরিক শ্রদ্ধাবোধই সুখের মূল চাবিকাঠি।",
+                    "বয়স বা অর্থের চেয়ে চরিত্রের সৌন্দর্যই বিবাহের ক্ষেত্রে প্রাধান্য পাওয়া উচিত।"
+                ],
+                source: "সহীহ বুখারী"
+            },
+            {
+                id: 5,
+                year: "610",
+                category: "makkan",
+                icon: "fas fa-book-quran",
+                title: "নবুওয়াত প্রাপ্তি",
+                subtitle: "হেরা গুহায় প্রথম ওহী",
+                story: `<p class="drop-cap">চ</p>ল্লিশ বছর বয়সে তিনি সত্যের সন্ধানে ব্যাকুল হয়ে ওঠেন। মক্কার অদূরে হেরা গুহায় তিনি নির্জনে ধ্যানে মগ্ন থাকতেন। ৬১০ খ্রিস্টাব্দের রমজান মাসে (লাইলাতুল কদরে) জিবরাঈল (আ.) আল্লাহর পক্ষ থেকে প্রথম ওহী নিয়ে আসেন। <p>জিবরাঈল (আ.) তাঁকে বললেন, <strong>'ইকরা'</strong> (পড়ুন)। তিনি উত্তর দিলেন, 'আমি পড়তে জানি না।' জিবরাঈল (আ.) তাঁকে বুকে চেপে ধরলেন এবং সূরা আলাকের প্রথম ৫ আয়াত পাঠ করালেন। এটিই ছিল কুরআনের প্রথম অবতরণ।</p>`,
+                stats: {
+                    "স্থান": "হেরা গুহা (জাবালে নূর)",
+                    "সময়": "রমজান মাস",
+                    "সূরা": "সূরা আলাক (১-৫)",
+                    "বয়স": "৪০ বছর ৬ মাস"
+                },
+                lessons: [
+                    "জ্ঞান অর্জন (ইকরা) হলো ইসলামের প্রথম নির্দেশ।",
+                    "নির্জনবাস আত্মশুদ্ধির জন্য গুরুত্বপূর্ণ।"
+                ],
+                source: "সহীহ বুখারী"
+            },
+            {
+                id: 6,
+                year: "613",
+                category: "makkan",
+                icon: "fas fa-bullhorn",
+                title: "প্রকাশ্য দাওয়াত",
+                subtitle: "সাফা পাহাড়ে সত্যের ঘোষণা",
+                story: `<p class="drop-cap">তি</p>ন বছর গোপন দাওয়াতের পর আল্লাহ নির্দেশ দিলেন প্রকাশ্যে দাওয়াত দেওয়ার। নবীজি সাফা পাহাড়ে উঠে মক্কাবাসীদের সমবেত করলেন। <p>তিনি বললেন, "আমি যদি বলি এই পাহাড়ের পিছনে শত্রুসেনা আছে, তোমরা কি বিশ্বাস করবে?" সবাই বলল, "অবশ্যই, আপনি আল-আমিন।" তখন তিনি বললেন, "তবে আমি তোমাদের এক কঠিন শাস্তি সম্পর্কে সতর্ক করছি, যদি তোমরা এক আল্লাহর ইবাদত না করো।" আবু লাহাব ক্ষিপ্ত হয়ে বলল, "তোমার ধ্বংস হোক!" এরপর থেকেই শুরু হলো চরম বিরোধিতা।</p>`,
+                stats: {
+                    "স্থান": "সাফা পাহাড়",
+                    "প্রথম বিরোধিতাকারী": "আবু লাহাব",
+                    "আয়াত": "ওয়া আনযির আশিরাকাল আকরাবিন",
+                    "সময়কাল": "নবুওয়াতের ৩য় বছর"
+                },
+                lessons: [
+                    "সত্য প্রকাশে কোনো ভয় বা আপস নেই।",
+                    "নিজের নিকটাত্মীয়দের থেকেই দাওয়াত শুরু করা উচিত।"
+                ],
+                source: "সহীহ মুসলিম"
+            },
+            {
+                id: 7,
+                year: "615",
+                category: "makkan",
+                icon: "fas fa-plane-departure",
+                title: "হাবশায় হিজরত",
+                subtitle: "প্রথম হিজরত ও নাজ্জাশীর দরবার",
+                story: `<p class="drop-cap">কু</p>রাইশদের নির্যাতন যখন অসহনীয় হয়ে ওঠে, তখন নবীজি সাহাবীদের আবিসিনিয়ায় (বর্তমান ইথিওপিয়া) হিজরত করার অনুমতি দেন। সেখানে এক ন্যায়পরায়ণ খ্রিস্টান রাজা ছিলেন, যার নাম নাজ্জাশী। <p>জাফর ইবনে আবু তালিব (রা.) নাজ্জাশীর দরবারে ইসলামের সৌন্দর্য তুলে ধরেন এবং সূরা মারিয়াম তিলাওয়াত করেন। রাজা কেঁদে ফেলেন এবং মুসলিমদের আশ্রয় দেন।</p>`,
+                stats: {
+                    "গন্তব্য": "আবিসিনিয়া (ইথিওপিয়া)",
+                    "রাজা": "আসহামা আন-নাজ্জাশী",
+                    "হিজরতকারী": "১২ জন পুরুষ, ৪ জন নারী (১ম দল)",
+                    "মুখপাত্র": "জাফর ইবনে আবু তালিব (রা.)"
+                },
+                lessons: [
+                    "নির্যাতনের মুখে স্থান ত্যাগ করা (হিজরত) জায়েজ।",
+                    "আন্তঃধর্মীয় সংলাপ ও হিকমত দাওয়াতের গুরুত্বপূর্ণ অংশ।"
+                ],
+                source: "আর-রাহিকুল মাখতুম"
+            },
+            {
+                id: 8,
+                year: "619",
+                category: "makkan",
+                icon: "fas fa-heart-broken",
+                title: "আমুল হুযন (দুঃখের বছর)",
+                subtitle: "তায়েফ ট্র্যাজেডি ও স্বজন হারানো",
+                story: `<p class="drop-cap">ন</p>বুওয়াতের ১০ম বছর ছিল নবীজির জীবনের সবচেয়ে কষ্টের সময়। অল্প দিনের ব্যবধানে চাচা আবু তালিব এবং প্রিয়তমা স্ত্রী খাদিজা (রা.) ইন্তেকাল করেন। <p>মনের কষ্ট কমাতে তিনি তায়েফ গেলেন। কিন্তু তায়েফ সর্দাররা তাঁকে পাথর মেরে রক্তাক্ত করে দিল। জিবরাঈল (আ.) পাহাড় দিয়ে তাদের ধ্বংস করার অনুমতি চাইলেন। কিন্তু দয়ার নবী বললেন, "না, আমি আশা করি আল্লাহ তাদের বংশধরদের হেদায়েত দেবেন।"</p>`,
+                stats: {
+                    "মৃত ব্যক্তি": "আবু তালিব ও খাদিজা (রা.)",
+                    "তায়েফ সফর": "শাওয়াল মাস",
+                    "সঙ্গী": "জায়েদ বিন হারিসা (রা.)",
+                    "ফলাফল": "ফেরেশতার সাহায্যের প্রস্তাব প্রত্যাখ্যান"
+                },
+                lessons: [
+                    "প্রতিশোধ না নিয়ে ক্ষমা করা এবং মানুষের হেদায়েতের জন্য দোয়া করা নবওয়ী চরিত্র।",
+                    "আল্লাহর সাহায্য সব সময় থাকে, কিন্তু পরীক্ষা দিতে হয়।"
+                ],
+                source: "সহীহ বুখারী"
+            },
+            {
+                id: 9,
+                year: "620",
+                category: "makkan",
+                icon: "fas fa-rocket",
+                title: "ইসরা ও মিরাজ",
+                subtitle: "ঊর্ধ্বগমন ও নামায ফরজ",
+                story: `<p class="drop-cap">চ</p>রম দুঃখের পর আল্লাহ তাঁর হাবিবকে সান্ত্বনা দিতে চাইলেন। এক রাতে জিবরাঈল (আ.) 'বোরাক' নিয়ে এলেন। নবীজি মক্কা থেকে চোখের পলকে জেরুজালেমের বাইতুল মুকাদ্দাসে গেলেন এবং সমস্ত নবীদের ইমামতি করলেন। <p>এরপর তিনি সাত আসমান পাড়ি দিয়ে সিদরাতুল মুনতাহায় আল্লাহর সান্নিধ্যে পৌঁছালেন। এই সফরেই আল্লাহ উম্মতে মুহাম্মদির জন্য ৫ ওয়াক্ত নামায ফরজ করেন।</p>`,
+                stats: {
+                    "বাহন": "বোরাক",
+                    "১ম ধাপ": "ইসরা (মক্কা টু জেরুজালেম)",
+                    "২য় ধাপ": "মিরাজ (ঊর্ধ্বগমন)",
+                    "উপহার": "৫ ওয়াক্ত সালাত"
+                },
+                lessons: [
+                    "নামায হলো মুমিনের মিরাজ।",
+                    "আল্লাহর কুদরতের কোনো সীমা নেই।"
+                ],
+                source: "সূরা বনী ইসরাঈল"
+            },
+            {
+                id: 10,
+                year: "622",
+                category: "madinan",
+                icon: "fas fa-route",
+                title: "ঐতিহাসিক হিজরত",
+                subtitle: "মদিনায় ইসলামী রাষ্ট্র গঠন",
+                story: `<p class="drop-cap">ম</p>ক্কার কাফেররা যখন নবীজিকে হত্যার চূড়ান্ত সিদ্ধান্ত নিল, তখন আল্লাহর নির্দেশে তিনি হিজরতের সিদ্ধান্ত নিলেন। হযরত আলী (রা.)-কে নিজের বিছানায় শুইয়ে তিনি হযরত আবু বকর (রা.)-কে সাথে নিয়ে রাতের আঁধারে বের হলেন। <p>তাঁরা তিন দিন সাওর গুহায় আত্মগোপন করে রইলেন। এরপর দীর্ঘ পথ পাড়ি দিয়ে মদিনায় পৌঁছান। মদিনাবাসী 'তালা আল বাদরু আলাইনা' গেয়ে তাঁকে বরণ করে নেয়। এখান থেকেই হিজরি সাল গণনা শুরু হয়।</p>`,
+                stats: {
+                    "সঙ্গী": "আবু বকর (রা.)",
+                    "গোপন স্থান": "সাওর গুহা (৩ দিন)",
+                    "তারিখ": "১২ রবিউল আউয়াল (মদিনায় প্রবেশ)",
+                    "ফলাফল": "মদিনা রাষ্ট্র প্রতিষ্ঠা"
+                },
+                lessons: [
+                    "ঈমান রক্ষার জন্য মাতৃভূমি ত্যাগ করা সর্বোচ্চ ত্যাগের নিদর্শন।",
+                    "কৌশল এবং আল্লাহর ওপর ভরসা (তাওয়াক্কুল) একসাথে কাজ করে।"
+                ],
+                source: "সূরা তাওবা"
+            },
+            {
+                id: 11,
+                year: "624",
+                category: "battle",
+                icon: "fas fa-shield-alt",
+                title: "বদর যুদ্ধ",
+                subtitle: "সত্য ও মিথ্যার ফয়সালা",
+                story: `<p class="drop-cap">দ্বি</p>তীয় হিজরির ১৭ই রমজান। বদর প্রান্তরে ইসলামের প্রথম সশস্ত্র যুদ্ধ সংঘটিত হয়। একদিকে ১০০০ সুসজ্জিত কুরাইশ বাহিনী, অন্যদিকে মাত্র ৩১৩ জন প্রায় নিরস্ত্র সাহাবী। <p>নবীজি (সা.) আল্লাহর কাছে হাত তুলে কান্নাজড়িত কণ্ঠে দোয়া করলেন। আল্লাহ ৩০০০ ফেরেশতা পাঠিয়ে সাহায্য করলেন। এই যুদ্ধে ইসলামের ঘোর শত্রু আবু জাহেল নিহত হয় এবং মুসলিমরা ঐতিহাসিক বিজয় লাভ করে।</p>`,
+                stats: {
+                    "তারিখ": "১৭ রমজান, ২য় হিজরি",
+                    "মুসলিম": "৩১৩ জন",
+                    "কাফের": "১০০০ জন",
+                    "ফলাফল": "মুসলিমদের বিজয়"
+                },
+                lessons: [
+                    "সংখ্যা বা অস্ত্রের চেয়ে ঈমানী শক্তি বড়।",
+                    "আল্লাহর সাহায্য মুমিনদের সাথে থাকে।"
+                ],
+                source: "সূরা আনফাল"
+            },
+            {
+                id: 12,
+                year: "625",
+                category: "battle",
+                icon: "fas fa-mountain",
+                title: "ওহুদ যুদ্ধ",
+                subtitle: "সাময়িক বিপর্যয় ও শিক্ষা",
+                story: `<p class="drop-cap">ব</p>দরের প্রতিশোধ নিতে কুরাইশরা ৩০০০ সৈন্য নিয়ে আসে। মুসলিম বাহিনী ছিল ৭০০। নবীজি ৫০ জন তীরন্দাজকে পাহাড়ের গিরিপথ পাহারায় রেখেছিলেন। <p>যুদ্ধের শুরুতে মুসলিমরা জিতছিল। গনীমত সংগ্রহ করতে দেখে তীরন্দাজরা স্থান ত্যাগ করে। এই সুযোগে খালিদ বিন ওয়ালিদ পেছন থেকে আক্রমণ করে। নবীজির দাঁত মোবারক শহীদ হয় এবং বীর হামজা (রা.) শহীদ হন।</p>`,
+                stats: {
+                    "মুসলিম সৈন্য": "৭০০ জন",
+                    "শহীদ": "৭০ জন (হামজা রা. সহ)",
+                    "কাফের নেতা": "আবু সুফিয়ান",
+                    "ফলাফল": "অমিমাংসিত/সাময়িক বিপর্যয়"
+                },
+                lessons: [
+                    "নেতার আদেশ অমান্য করলে বিপর্যয় অনিবার্য।",
+                    "বিজয় ও পরাজয় উভয়ই আল্লাহর পরীক্ষা।"
+                ],
+                source: "সূরা আল-ইমরান"
+            },
+            {
+                id: 13,
+                year: "628",
+                category: "madinan",
+                icon: "fas fa-handshake",
+                title: "হুদায়বিয়ার সন্ধি",
+                subtitle: "কূটনৈতিক মহাবিজয় (ফাতহুম মুবিন)",
+                story: `<p class="drop-cap">ন</p>বীজি ১৪০০ সাহাবী নিয়ে ওমরাহ করতে যান, কিন্তু কুরাইশরা বাধা দেয়। হুদায়বিয়ায় এক শান্তি চুক্তি হয়। শর্তগুলো বাহ্যত মুসলিমদের বিপক্ষে মনে হলেও নবীজি তা মেনে নিলেন। <p>সাহাবীরা মনক্ষুণ্ন হলেও আল্লাহ একে <strong>'ফাতহুম মুবিন'</strong> (সুস্পষ্ট বিজয়) ঘোষণা করেন। এই শান্তির সময়েই ইসলাম সবচেয়ে দ্রুত ছড়িয়ে পড়ে।</p>`,
+                stats: {
+                    "সময়কাল": "৬ষ্ঠ হিজরি",
+                    "মেয়াদ": "১০ বছর",
+                    "ঘোষণা": "ফাতহুম মুবিন",
+                    "ফলাফল": "ব্যাপক হারে ইসলাম গ্রহণ"
+                },
+                lessons: [
+                    "আবেগের চেয়ে দূরদর্শী সিদ্ধান্ত বেশি সুফল বয়ে আনে।",
+                    "শান্তিই ইসলামের মূল লক্ষ্য।"
+                ],
+                source: "সূরা ফাতহ"
+            },
+            {
+                id: 14,
+                year: "630",
+                category: "battle",
+                icon: "fas fa-flag",
+                title: "মক্কা বিজয়",
+                subtitle: "রক্তপাতহীন মহাবিজয়",
+                story: `<p class="drop-cap">কু</p>রাইশরা সন্ধি ভঙ্গ করলে, ৮ম হিজরিতে নবীজি ১০,০০০ সাহাবীর এক বিশাল বাহিনী নিয়ে মক্কা অভিমুখে যাত্রা করেন। কুরাইশরা কোনো প্রতিরোধ করতে পারল না। <p>যে শহর থেকে তাঁকে অপমান করে বের করা হয়েছিল, আজ তিনি সেই শহরের বিজেতা। কিন্তু কোনো প্রতিশোধ নেই। তিনি কাবার দরজায় দাঁড়িয়ে ঘোষণা করলেন, <strong>"যাও, তোমরা সবাই মুক্ত।"</strong> তিনি কাবার ৩৬০টি মূর্তি ভেঙে তাওহীদের পতাকা উড্ডীন করলেন।</p>`,
+                stats: {
+                    "সৈন্য": "১০,০০০ জন",
+                    "তারিখ": "২০ রমজান, ৮ম হিজরি",
+                    "ফলাফল": "বিনা রক্তপাতে বিজয়",
+                    "ঘোষণা": "সাধারণ ক্ষমা"
+                },
+                lessons: [
+                    "ক্ষমাই হলো প্রকৃত শক্তি।",
+                    "বিজয় আসলে আল্লাহর প্রতি আরও বিনয়ী হতে হয়।"
+                ],
+                source: "সিরাতে ইবনে হিশাম"
+            },
+            {
+                id: 15,
+                year: "632",
+                category: "madinan",
+                icon: "fas fa-users",
+                title: "বিদায় হজ্জ",
+                subtitle: "মানবতার সনদ",
+                story: `<p class="drop-cap">১</p>০ম হিজরিতে তিনি জীবনের শেষ হজ্জ পালন করেন। আরাফাতের ময়দানে লক্ষাধিক সাহাবীর সামনে তিনি এক ঐতিহাসিক ভাষণ দেন। <p>তিনি বললেন, "মানুষের রক্ত ও সম্পদ পবিত্র। সুদ চিরতরে হারাম। নারীদের অধিকার আদায় করতে হবে। আরবের ওপর অনারবের কোনো শ্রেষ্ঠত্ব নেই।" ভাষণ শেষে নাজিল হলো: <em>"আজ আমি তোমাদের দ্বীনকে পূর্ণাঙ্গ করে দিলাম..."</em></p>`,
+                stats: {
+                    "স্থান": "আরাফাতের ময়দান",
+                    "উপস্থিতি": "১ লক্ষ ২৪ হাজার সাহাবী",
+                    "ঘোষণা": " মানবাধিকার সনদ",
+                    "আয়াত": "সূরা মায়েদা: ৩"
+                },
+                lessons: [
+                    "মানবাধিকার ও সাম্যের শ্রেষ্ঠ দলিল হলো বিদায় হজ্জের ভাষণ।",
+                    "ইসলাম একটি পূর্ণাঙ্গ জীবন ব্যবস্থা।"
+                ],
+                source: "সহীহ মুসলিম"
+            },
+            {
+                id: 16,
+                year: "632",
+                category: "madinan",
+                icon: "fas fa-praying-hands",
+                title: "ওফাত (ইন্তেকাল)",
+                subtitle: "রফিকে আ'লার সন্ধানে",
+                story: `<p class="drop-cap">হ</p>জ্জ থেকে ফেরার পর তিনি অসুস্থ হয়ে পড়েন। অসুস্থতা বাড়লে তিনি আয়েশা (রা.)-এর ঘরে থাকার অনুমতি চান। ১২ই রবিউল আউয়াল সোমবার। <p>তিনি মেসওয়াক করলেন। তাঁর শরীর ঘামছিল। তিনি হাত তুলে শেষ কথা বললেন: <strong>"আল্লাহুম্মা আর-রফিক আল-আ'লা"</strong> (হে আল্লাহ! আমি পরম বন্ধুর সান্নিধ্য চাই)। এরপর তিনি ইহলোক ত্যাগ করেন। ইন্নালিল্লাহি ওয়া ইন্না ইলাইহি রাজিউন।</p>`,
+                stats: {
+                    "তারিখ": "১২ রবিউল আউয়াল, ১১ হিজরি",
+                    "বয়স": "৬৩ বছর",
+                    "স্থান": "মদিনা (রওজা মোবারক)",
+                    "বার": "সোমবার"
+                },
+                lessons: [
+                    "মৃত্যু অবধারিত, প্রতিটি প্রাণীকেই মৃত্যুর স্বাদ গ্রহণ করতে হবে।",
+                    "নবীজি আমাদের মাঝে নেই, কিন্তু তাঁর রেখে যাওয়া সুন্নাহ আমাদের পাথেয়।"
+                ],
+                source: "আর-রাহিকুল মাখতুম"
+            }
+        ];
+
+        // --- 3. RENDER TIMELINE ---
+        const timelineFeed = document.getElementById('timeline-feed');
+        const searchInput = document.getElementById('search-input');
+        const filterSelect = document.getElementById('filter-select');
+
+        function renderTimeline(data = seerahDB) {
+            timelineFeed.innerHTML = '';
+            
+            data.forEach((item, index) => {
+                const isLeft = index % 2 === 0;
+                
+                // Styles based on category
+                let borderColor = 'border-brand-gold';
+                let iconColor = 'text-brand-gold';
+                let tagText = '';
+
+                if(item.category === 'makkan') { 
+                    borderColor = 'border-brand-makkan'; iconColor = 'text-brand-makkan'; tagText = 'মক্কী জীবন';
+                } else if(item.category === 'madinan') {
+                    borderColor = 'border-brand-madinan'; iconColor = 'text-brand-madinan'; tagText = 'মাদানী জীবন';
+                } else if(item.category === 'battle') {
+                    borderColor = 'border-brand-battle'; iconColor = 'text-brand-battle'; tagText = 'জিহাদ/যুদ্ধ';
+                }
+
+                const html = `
+                <div class="relative flex items-center justify-between mb-24 w-full ${isLeft ? '' : 'flex-row-reverse'} group">
+                    
+                    <!-- 1. Content Card -->
+                    <div class="w-[85%] md:w-[45%] z-10 cursor-pointer" onclick="openModal(${item.id})">
+                        <div class="timeline-card bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 border-l-4 ${borderColor} relative overflow-hidden">
+                            <!-- Faded BG Icon -->
+                            <i class="${item.icon} absolute -right-6 -bottom-6 text-9xl opacity-5 ${iconColor} transition-transform duration-700 group-hover:rotate-12"></i>
+
+                            <!-- Header Info -->
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-gray-100 text-gray-600 text-[11px] font-bold px-3 py-1 rounded-full">
+                                    ${toBanglaNum(item.year)} খ্রিস্টাব্দ
+                                </span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 border border-gray-200 px-2 py-0.5 rounded">${tagText}</span>
+                            </div>
+
+                            <h3 class="text-2xl font-bold font-serif text-brand-dark mb-1 group-hover:${iconColor} transition-colors">${item.title}</h3>
+                            <p class="text-xs font-bold text-brand-gold uppercase tracking-widest mb-4 opacity-80">${item.subtitle}</p>
+                            
+                            <div class="mt-6 flex items-center gap-2 text-xs font-bold text-gray-400 group-hover:text-brand-base transition-colors bg-gray-50 inline-block px-3 py-1 rounded-full border border-gray-100">
+                                বিস্তারিত পড়ুন <i class="fas fa-arrow-right ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Center Node -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center hidden md:flex">
+                        <div class="w-12 h-12 rounded-full bg-paper border-4 ${borderColor} flex items-center justify-center shadow-lg z-10 transition-transform group-hover:scale-110" onclick="openModal(${item.id})">
+                            <i class="${item.icon} ${iconColor} text-lg"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3. Mobile Connector -->
+                    <div class="md:hidden absolute left-[30px] w-4 h-4 rounded-full bg-white border-2 ${borderColor} z-10 transform -translate-x-1/2"></div>
+
+                    <!-- 4. Spacer -->
+                    <div class="hidden md:block w-[45%]"></div>
+                </div>`;
+                
+                timelineFeed.innerHTML += html;
+            });
+        }
+
+        // --- 4. FILTER ---
+        function filterTimeline() {
+            const cat = filterSelect.value;
+            const query = searchInput.value.toLowerCase();
+            const filtered = seerahDB.filter(item => {
+                const matchesCat = cat === 'all' ? true : item.category === cat;
+                const matchesSearch = item.title.toLowerCase().includes(query) || item.subtitle.toLowerCase().includes(query);
+                return matchesCat && matchesSearch;
+            });
+            renderTimeline(filtered);
+        }
+        searchInput.addEventListener('input', filterTimeline);
+
+        // --- 5. MODAL SYSTEM ---
+        const modalOverlay = document.getElementById('modal-overlay');
+        const mTitle = document.getElementById('m-title');
+        const mSubtitle = document.getElementById('m-subtitle');
+        const mTag = document.getElementById('m-tag');
+        const mIconHeader = document.getElementById('m-icon-header');
+        const mStory = document.getElementById('m-story');
+        const mStatsContainer = document.getElementById('m-stats-table-container');
+        const mLessonList = document.getElementById('m-lesson-list');
+        const mSource = document.getElementById('m-source');
+        const mYearBadge = document.getElementById('m-year-badge');
+        const mCatBadge = document.getElementById('m-cat-badge');
+
+        function openModal(id) {
+            const data = seerahDB.find(d => d.id === id);
+            
+            // Header Info
+            mTitle.innerText = data.title;
+            mSubtitle.innerText = data.subtitle;
+            mYearBadge.innerText = toBanglaNum(data.year) + " খ্রি.";
+            
+            let catText = '';
+            if(data.category === 'makkan') { catText = 'মক্কী জীবন'; mIconHeader.className = "fas fa-star text-brand-makkan"; }
+            else if(data.category === 'madinan') { catText = 'মাদানী জীবন'; mIconHeader.className = "fas fa-mosque text-brand-madinan"; }
+            else { catText = 'যুদ্ধ'; mIconHeader.className = "fas fa-shield-alt text-brand-battle"; }
+            
+            mCatBadge.innerText = catText;
+            mIconHeader.className = data.icon; // Use specific icon
+
+            // Story Tab
+            mStory.innerHTML = data.story;
+
+            // Stats Tab (Dynamic Table)
+            createStatsTable(data.stats);
+
+            // Lesson Tab
+            let lessonHtml = '';
+            data.lessons.forEach(l => {
+                lessonHtml += `<li class="flex items-start gap-3"><i class="fas fa-check-circle text-brand-base mt-1"></i> <span class="text-gray-700 italic">${l}</span></li>`;
+            });
+            mLessonList.innerHTML = lessonHtml;
+            mSource.innerText = data.source;
+
+            modalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            switchTab('story');
+        }
+
+        function createStatsTable(stats) {
+            let html = `<table class="info-table"><tbody>`;
+            for (const [key, value] of Object.entries(stats)) {
+                html += `<tr><th>${key}</th><td>${value}</td></tr>`;
+            }
+            html += `</tbody></table>`;
+            mStatsContainer.innerHTML = html;
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- 6. TAB SYSTEM ---
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById('content-' + tab).classList.add('active');
+        }
+
+        // --- 7. SCROLL PROGRESS ---
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-line').style.height = scrolled + "%";
+        });
+
+        // Initialize
+        renderTimeline();
+
+    </script>
+</body>
+</html>
+
+
