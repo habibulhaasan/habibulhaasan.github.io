@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist & Developer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter and Noto Sans Bengali -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        bengali: ['Noto Sans Bengali', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6', // Teal
+                            600: '#0d9488',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    },
+                    backgroundImage: {
+                        'chem-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314b8a6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0fdfa; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Modal Animation */
+        .modal-enter { opacity: 0; transform: scale(0.95); }
+        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.3s ease-out; }
+        .modal-exit { opacity: 0; transform: scale(0.95); transition: all 0.2s ease-in; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans bg-chem-pattern min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Brand / Name -->
+            <div class="flex items-center gap-2 text-medical-800">
+                <div class="w-8 h-8 bg-medical-50 text-medical-600 rounded-lg flex items-center justify-center border border-medical-200">
+                    <i class="ph-fill ph-flask text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">Your Name</h1>
+                    <p class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Pharmacist & Dev</p>
+                </div>
+            </div>
+
+            <!-- Date / Status -->
+            <div class="hidden md:flex items-center gap-4 text-sm font-medium text-slate-600">
+                <span class="flex items-center gap-2 px-3 py-1 bg-medical-50 text-medical-700 rounded-full border border-medical-100">
+                    <i class="ph-fill ph-pill"></i>
+                    <span>Code Prescribed: <span id="current-year" class="font-bengali"></span></span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-16 pb-12 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white rounded-full border border-medical-100 shadow-sm text-medical-700 text-sm font-medium animate-bounce">
+                <i class="ph-bold ph-dna"></i>
+                <span>Formulating Digital Solutions</span>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
+                From <span class="text-medical-600">Chemistry</span> to <span class="text-indigo-600">Coding</span>.
+            </h2>
+            <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                I bridge the gap between healthcare precision and software engineering. 
+                Below is my formulated collection of web applications, curated with the same care as a prescription.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 pb-20 w-full">
+        
+        <!-- Controls -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-slate-200 pb-4">
+            <div class="flex items-center gap-2 text-slate-900 font-semibold">
+                <i class="ph-duotone ph-squares-four text-xl text-medical-600"></i>
+                <span>Lab Records</span>
+            </div>
+            <div id="project-count" class="text-sm font-mono text-slate-500 bg-white px-3 py-1 rounded border border-slate-200 shadow-sm">
+                Scanning Database...
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Items injected by JS -->
+        </div>
+
+        <!-- Loading / Error States -->
+        <div id="loading" class="flex flex-col items-center justify-center py-20 text-medical-600">
+            <i class="ph-duotone ph-circle-notch animate-spin text-4xl mb-3"></i>
+            <p class="text-sm font-medium">Dispensing Projects...</p>
+        </div>
+        <div id="error-msg" class="hidden text-center py-20 text-red-500">
+            <i class="ph-duotone ph-warning-octagon text-4xl mb-2"></i>
+            <p>Failed to retrieve formulation data.</p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+        <p>&copy; <span id="footer-year"></span>. Crafted with <i class="ph-fill ph-heart text-red-500 mx-1"></i> & <i class="ph-fill ph-coffee text-amber-700 mx-1"></i> by a Pharmacist.</p>
+    </footer>
+
+    <!-- MODAL (Popup) -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <!-- Modal Panel -->
+        <div class="absolute inset-2 md:inset-10 bg-slate-100 rounded-xl shadow-2xl flex flex-col overflow-hidden transform transition-all border border-white/20">
+            
+            <!-- Modal Header -->
+            <div class="bg-white px-4 py-3 border-b border-slate-200 flex justify-between items-center flex-shrink-0">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="p-2 bg-medical-50 text-medical-600 rounded-lg">
+                        <i class="ph-bold ph-monitor-play"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="font-bold text-slate-900 truncate max-w-[200px] md:max-w-md">Project Title</h3>
+                        <p class="text-xs text-slate-500 flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Live Preview
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a id="modal-external-btn" href="#" target="_blank" class="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors">
+                        Expand <i class="ph-bold ph-arrow-square-out"></i>
+                    </a>
+                    <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                        <i class="ph-bold ph-x text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body (Iframe) -->
+            <div class="flex-grow relative bg-slate-200 w-full h-full group">
+                <iframe id="modal-iframe" class="w-full h-full bg-white" src="about:blank" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+                
+                <!-- Loading Indicator for Iframe -->
+                <div id="iframe-loader" class="absolute inset-0 flex items-center justify-center bg-slate-50 z-10">
+                    <div class="flex flex-col items-center">
+                        <i class="ph-duotone ph-flask animate-bounce text-3xl text-medical-500 mb-2"></i>
+                        <span class="text-sm text-slate-500">Loading Experiment...</span>
+                    </div>
+                </div>
+
+                <!-- Iframe Blocked Message (Hidden by default, simplistic fallback) -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/80 backdrop-blur text-white text-xs px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    If preview doesn't load, use "Expand" button.
+                </div>
+            </div>
+
+            <!-- Mobile Footer Action -->
+            <div class="md:hidden p-4 bg-white border-t border-slate-200">
+                <a id="modal-mobile-btn" href="#" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-medical-600 text-white font-bold rounded-lg shadow-lg shadow-medical-500/30">
+                    Open in New Window <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        // CONFIG
+        const SHEET_ID = '1O56-WQwcDs7LtwdPhUCuqm84-sAEBj5wvow1CDJwNgw';
+        const GID = '624491021';
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+
+        // DOM Elements
+        const grid = document.getElementById('grid-container');
+        const loading = document.getElementById('loading');
+        const errorMsg = document.getElementById('error-msg');
+        const countLabel = document.getElementById('project-count');
+        const modal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalIframe = document.getElementById('modal-iframe');
+        const iframeLoader = document.getElementById('iframe-loader');
+        const modalExternalBtn = document.getElementById('modal-external-btn');
+        const modalMobileBtn = document.getElementById('modal-mobile-btn');
+
+        // Utils: Bangla
+        const enToBnDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+        function toBangla(str) { return str.toString().replace(/[0-9]/g, w => enToBnDigits[w]); }
+        
+        function formatBanglaDate(dateStr) {
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return toBangla(dateStr);
+            const banglaMonths = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+            return `${toBangla(d.getDate())} ${banglaMonths[d.getMonth()]} ${toBangla(d.getFullYear())}`;
+        }
+
+        // Utils: CSV Parser
+        function parseCSV(text) {
+            const result = [];
+            const rows = text.split('\n');
+            rows.forEach(row => {
+                if (!row.trim()) return;
+                let cols = [];
+                let buffer = '';
+                let inQuote = false;
+                for(let c of row) {
+                    if(c === '"') { inQuote = !inQuote; } 
+                    else if (c === ',' && !inQuote) { cols.push(buffer); buffer = ''; } 
+                    else { buffer += c; }
+                }
+                cols.push(buffer);
+                result.push(cols.map(c => c.trim().replace(/^"|"$/g, '').replace(/""/g, '"')));
+            });
+            return result;
+        }
+
+        // Modal Logic
+        function openModal(link, title) {
+            modalTitle.innerText = title;
+            modalExternalBtn.href = link;
+            modalMobileBtn.href = link;
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling bg
+            
+            // Handle Iframe loading
+            iframeLoader.classList.remove('hidden');
+            modalIframe.src = link;
+            
+            modalIframe.onload = () => {
+                iframeLoader.classList.add('hidden');
+            };
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modalIframe.src = 'about:blank'; // Stop audio/video if any
+            document.body.style.overflow = 'auto';
+        }
+
+        // Card Template
+        function createCard(data, index) {
+            const date = data[0] || '';
+            let link = data[1] || '';
+            const desc = data[2] || 'No description.';
+
+            if (!link || !link.startsWith('http')) link = 'https://' + link;
+
+            let domain = 'Project';
+            try { domain = new URL(link).hostname.replace('www.', ''); } catch(e){}
+
+            const thumbUrl = `https://image.thum.io/get/width/600/crop/800/noanimate/${link}`;
+            const banglaDate = date ? formatBanglaDate(date) : '';
+
+            // Using Chemistry hexagon styles for the index
+            return `
+                <div class="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-medical-200 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative" onclick="openModal('${link}', '${domain}')">
+                    
+                    <!-- Decorative Hexagon Index -->
+                    <div class="absolute top-0 left-0 z-20 bg-white/90 backdrop-blur border-r border-b border-medical-100 px-3 py-1 rounded-br-xl text-xs font-mono text-medical-600 font-bold">
+                        RX #${toBangla(index + 1)}
+                    </div>
+
+                    <!-- Thumbnail -->
+                    <div class="relative h-48 bg-slate-100 overflow-hidden border-b border-slate-100">
+                        <img src="${thumbUrl}" alt="${domain}" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        
+                        <!-- Hover Overlay -->
+                        <div class="absolute inset-0 bg-medical-900/10 group-hover:bg-medical-900/20 transition-colors flex items-center justify-center">
+                            <div class="bg-white text-medical-700 px-4 py-2 rounded-full shadow-lg font-medium text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 flex items-center gap-2">
+                                <i class="ph-fill ph-eye"></i> Quick View
+                            </div>
+                        </div>
+
+                        ${banglaDate ? `<div class="absolute bottom-2 right-2 bg-slate-900/70 backdrop-blur text-white text-[10px] px-2 py-0.5 rounded font-bengali">${banglaDate}</div>` : ''}
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-slate-800 mb-2 truncate flex items-center gap-2">
+                            ${domain}
+                        </h3>
+                        <p class="text-sm text-slate-500 leading-relaxed line-clamp-2 mb-4">
+                            ${desc}
+                        </p>
+                        
+                        <div class="mt-auto pt-3 border-t border-dashed border-slate-200 flex justify-between items-center text-xs text-slate-400">
+                            <span class="flex items-center gap-1"><i class="ph-bold ph-code"></i> Web App</span>
+                            <span class="group-hover:text-medical-600 transition-colors">Click to Analyze &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Init
+        async function init() {
+            // Update Years
+            const yearBn = toBangla(new Date().getFullYear());
+            document.getElementById('current-year').innerText = yearBn;
+            document.getElementById('footer-year').innerText = yearBn;
+
+            try {
+                const res = await fetch(CSV_URL);
+                if (!res.ok) throw new Error("Net Err");
+                const text = await res.text();
+                const rows = parseCSV(text).slice(1).filter(r => r.length > 1 && r[1]);
+
+                loading.classList.add('hidden');
+                
+                if (rows.length === 0) {
+                    countLabel.innerText = "Empty Storage";
+                    return;
+                }
+
+                countLabel.innerHTML = `Inventory: <span class="font-bold text-medical-600 font-bengali">${toBangla(rows.length)}</span>`;
+                
+                rows.forEach((row, i) => {
+                    grid.insertAdjacentHTML('beforeend', createCard(row, i));
+                });
+
+            } catch (e) {
+                loading.classList.add('hidden');
+                errorMsg.classList.remove('hidden');
+                console.error(e);
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
